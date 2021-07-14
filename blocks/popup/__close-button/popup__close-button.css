@@ -2,7 +2,7 @@
   background-image: url(../../../images/popup__close-button.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0);
   border: none;
   margin: 0;
   padding: 0;
