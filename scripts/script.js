@@ -1,21 +1,24 @@
 "use strict"
+let likeButtons = document.querySelectorAll('.element__like-button');
+for (let likeButton of likeButtons) {
+  let fillLike = () => {
+    likeButton.classList.toggle('element__like-button-active');
+  }
+  likeButton.addEventListener('click',fillLike);
+}
+
 let editButton = document.querySelector('.profile__edit-button');
-
 let popup = document.querySelector('.popup');
-
 let editProfile = () => {
     popup.classList.add('popup_opened');
 }
-
 editButton.addEventListener('click', editProfile);
 
 
 let closeButton = document.querySelector('.popup__close-button');
-
 let closePopup = () => {
     popup.classList.remove('popup_opened');
 }
-
 closeButton.addEventListener('click', closePopup);
 
 
