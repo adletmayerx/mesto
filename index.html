@@ -9,83 +9,82 @@
 <body class="page">
   <header class="header">
     <img src="./images/logo.svg" alt="лого сайта 'Место'" class="header__logo">
-    <div class="header__line"></div>
+    <!-- <div class="header__line"></div> -->
   </header>
+  <main class="conten">
+    <section class="profile">
+      <img src="./images/profile__image.png" alt="фотография обладателя профиля"
+      class="profile__image">
+      <div class="profile__info">
+        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <button type="button" class="profile__edit-button button"></button>
+        <p class="profile__subtitle">Исследователь океана</p>
+      </div>
+      <button type="button" class="profile__add-button button"></button>
+    </section>
 
-  <section class="profile">
-    <img src="./images/profile__image.png" alt="фотография улыбающегося Жак-Ив-Кусто в красной шапке"
-    class="profile__image">
-    <div class="profile__info">
-      <h1 class="profile__title">Жак-Ив Кусто</h1>
-      <button class="profile__edit-button button"></button>
-      <p class="profile__subtitle">Исследователь океана</p>
-    </div>
-    <button class="profile__add-button button"></button>
-  </section>
-
-  <section class="elements">
-    <div class="element">
-      <img src="./images/element__image-elbrus.png" alt="фотография Эльбруса" class="element__image">
-      <div class="element__description">
-        <h2 class="element__title">Гора Эльбрус</h2>
-        <button class="element__like-button button"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/element__image-karachaevsk.png" alt="фотография старого, заброшенного храма в Карачаевске"
-       class="element__image">
-      <div class="element__description">
-        <h2 class="element__title">Карачаевск</h2>
-        <button class="element__like-button button"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/element__image-dombai.png" alt="фотография горного хребта Домбай"
-       class="element__image">
-      <div class="element__description">
-        <h2 class="element__title">Домбай</h2>
-        <button class="element__like-button button"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/element__image-elbrus.png" alt="фотография Эльбруса" class="element__image">
-      <div class="element__description">
-        <h2 class="element__title">Гора Эльбрус</h2>
-        <button class="element__like-button button"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/element__image-karachaevsk.png" alt="фотография старого, заброшенного храма в Карачаевске"
-       class="element__image">
-      <div class="element__description">
-        <h2 class="element__title">Карачаево-Черкесия</h2>
-        <button class="element__like-button button"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/element__image-dombai.png" alt="фотография горного хребта Домбай"
-       class="element__image">
-      <div class="element__description">
-        <h2 class="element__title">Домбай</h2>
-        <button class="element__like-button button"></button>
-      </div>
-    </div>
-  </section>
+    <section class="elements">
+      <article class="element">
+        <img src="./images/element__image-elbrus.png" alt="фотография Эльбруса" class="element__image">
+        <div class="element__description">
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <button type="button" class="element__like-button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img src="./images/element__image-karachaevsk.png" alt="фотография старого, заброшенного храма в Карачаевске"
+        class="element__image">
+        <div class="element__description">
+          <h2 class="element__title">Карачаевск</h2>
+          <button type="button" class="element__like-button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img src="./images/element__image-dombai.png" alt="фотография горного хребта Домбай"
+        class="element__image">
+        <div class="element__description">
+          <h2 class="element__title">Домбай</h2>
+          <button type="button" class="element__like-button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img src="./images/element__image-elbrus.png" alt="фотография Эльбруса" class="element__image">
+        <div class="element__description">
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <button type="button" class="element__like-button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img src="./images/element__image-karachaevsk.png" alt="фотография старого, заброшенного храма в Карачаевске"
+        class="element__image">
+        <div class="element__description">
+          <h2 class="element__title">Карачаево-Черкесия</h2>
+          <button type="button" class="element__like-button"></button>
+        </div>
+      </article>
+      <article class="element">
+        <img src="./images/element__image-dombai.png" alt="фотография горного хребта Домбай"
+        class="element__image">
+        <div class="element__description">
+          <h2 class="element__title">Домбай</h2>
+          <button type="button" class="element__like-button"></button>
+        </div>
+      </article>
+    </section>
+  </main>
 
   <footer class="footer">
-    <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <div class="popup" id="popup">
+  <div class="popup">
     <div class="popup__container">
-      <button class="popup__close-button button"></button>
+      <button type="button" class="popup__close-button button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form">
-        <input type="text" class="popup__name">
-        <div class="popup__line"></div>
-        <input type="text" class="popup__about">
-        <div class="popup__line"></div>
-      <button class="popup__save-button button">Сохранить</button>
+      <form name="popup" class="popup__form">
+        <input type="text" class="popup__input popup__input_type_name">
+        <input type="text" class="popup__input popup__input_type_about">
+      <button type="submit" class="popup__save-button">Сохранить</button>
     </form>
     </div>
   </div>
