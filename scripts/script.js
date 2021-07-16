@@ -7,35 +7,25 @@ let closeButton = document.querySelector('.popup__close-button');
 let likeButtons = document.querySelectorAll('.element__like-button');
 let profileTitle = document.querySelector('.profile__title');
 let profileSubtitle = document.querySelector('.profile__subtitle');
-
-
+let popupToggle = () => {
+  popup.classList.toggle('popup_opened');
+}
 function formSubmitHandler (evt) {
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
     profileSubtitle.textContent = jobInput.value;
-
-    popup.classList.remove('popup_opened');
+    popupToggle();
 }
-
 for (let likeButton of likeButtons) {
-  let fillLike = () => {
-    likeButton.classList.toggle('element__like-button-active');
-  }
-  likeButton.addEventListener('click',fillLike);
+    likeButton.addEventListener('click',function() {
+      likeButton.classList.toggle('element__like-button-active');
+    });
 }
-
 let editProfile = () => {
-  popup.classList.add('popup_opened');
-
+  popupToggle();
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-
 }
-
-let closePopup = () => {
-    popup.classList.remove('popup_opened');
-}
-
 formElement.addEventListener('submit', formSubmitHandler);
-closeButton.addEventListener('click', closePopup);
+closeButton.addEventListener('click', popupToggle);
 editButton.addEventListener('click', editProfile);
