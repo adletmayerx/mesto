@@ -4,30 +4,27 @@ let jobInput = document.querySelector('.popup__input_type_about');
 let editButton = document.querySelector('.profile__edit-button');
 let popup = document.querySelector('.popup');
 let closeButton = document.querySelector('.popup__close-button');
-let likeButtons = document.querySelectorAll('.element__like-button');
 let profileTitle = document.querySelector('.profile__title');
 let profileSubtitle = document.querySelector('.profile__subtitle');
 
-let popupToggle = () => {
-  popup.classList.toggle('popup_opened');
+let popupOpen = () => {
+  popup.classList.add('popup_opened');
+}
+let popupClose = () => {
+  popup.classList.remove('popup_opened');
 }
 let formSubmitHandler = evt => {
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
     profileSubtitle.textContent = jobInput.value;
-    popupToggle();
+    popupClose();
 }
 let editProfile = () => {
-  popupToggle();
+  popupOpen();
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
-closeButton.addEventListener('click', popupToggle);
+closeButton.addEventListener('click', popupClose);
 editButton.addEventListener('click', editProfile);
-for (let likeButton of likeButtons) {
-  likeButton.addEventListener('click',function() {
-    likeButton.classList.toggle('element__like-button-active');
-  });
-}
