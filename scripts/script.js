@@ -46,6 +46,11 @@ initialCards.forEach(function(card) {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   const elementImage = element.querySelector('.element__image');
   const elementTitle = element.querySelector('.element__title');
+  const removeButton = element.querySelector('.element__remove-button');
+
+  removeButton.addEventListener('click', function(evt) {
+    removeButton.closest('.element').remove();
+  });
 
   elementTitle.textContent = card.name;
   elementImage.src = card.link;
@@ -84,7 +89,10 @@ const addFormSubmitHandler = evt => {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   const elementImage = element.querySelector('.element__image');
   const elementTitle = element.querySelector('.element__title');
-
+  const removeButton = element.querySelector('.element__remove-button');
+  removeButton.addEventListener('click', function(evt) {
+    removeButton.closest('.element').remove();
+  });
   elementTitle.textContent = tittleInput.value;
   elementImage.src = linkInput.value;
 
@@ -99,9 +107,16 @@ const addElement = () => {
   popupAddOpen();
 }
 
+
 editFormElement.addEventListener('submit', editFormSubmitHandler);
 closeEditPopupButton.addEventListener('click', popupEditClose);
 editButton.addEventListener('click', editProfile);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 closeAddPopupButton.addEventListener('click', popupAddClose);
 addButton.addEventListener('click', addElement);
+
+
+
+
+
+
