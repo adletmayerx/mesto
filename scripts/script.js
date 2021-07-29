@@ -50,16 +50,14 @@ initialCards.forEach(function(card) {
   const likeButton = element.querySelector('.element__like-button');
 
   elementTitle.textContent = card.name;
-
   elementImage.src = card.link;
+
   removeButton.addEventListener('click', function() {
     removeButton.closest('.element').remove();
   });
   likeButton.addEventListener('click', function() {
     likeButton.classList.toggle('element__like-button_active');
   });
-
-
 
   elements.append(element);
 });
@@ -96,9 +94,15 @@ const addFormSubmitHandler = evt => {
   const elementImage = element.querySelector('.element__image');
   const elementTitle = element.querySelector('.element__title');
   const removeButton = element.querySelector('.element__remove-button');
+  const likeButton = element.querySelector('.element__like-button');
+
   removeButton.addEventListener('click', function(evt) {
     removeButton.closest('.element').remove();
   });
+  likeButton.addEventListener('click', function() {
+    likeButton.classList.toggle('element__like-button_active');
+  });
+
   elementTitle.textContent = tittleInput.value;
   elementImage.src = linkInput.value;
 
