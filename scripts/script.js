@@ -1,4 +1,4 @@
-const formElement = document.querySelector('.popup-edit__form');
+const editFormElement = document.querySelector('.popup-edit__form');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_about');
 const editButton = document.querySelector('.profile__edit-button');
@@ -7,6 +7,12 @@ const closeEditPopupButton = document.querySelector('.popup-edit__close-button')
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const elements = document.querySelector('.elements');
+const popupAdd = document.querySelector('.popup-add');
+const addButton = document.querySelector('.profile__add-button');
+const closeAddPopupButton = document.querySelector('.popup-add__close-button');
+const addFormElement = document.querySelector('.popup-add__form');
+const tittleInput = document.querySelector('.popup__input_type_title');
+const linkInput = document.querySelector('.popup__input_type_link');
 
 const initialCards = [
   {
@@ -47,14 +53,13 @@ initialCards.forEach(function(card) {
   elements.append(element);
 });
 
-
 const popupEditOpen = () => {
   popupEdit.classList.add('popup_opened');
 }
 const popupEditClose = () => {
   popupEdit.classList.remove('popup_opened');
 }
-const formSubmitHandler = evt => {
+const editFormSubmitHandler = evt => {
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
     profileSubtitle.textContent = jobInput.value;
@@ -65,8 +70,38 @@ const editProfile = () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
 }
+const popupAddOpen = () => {
+  tittleInput.value = '';
+  linkInput.value = '';
+  popupAdd.classList.add('popup_opened');
+}
+const popupAddClose = () => {
+  popupAdd.classList.remove('popup_opened');
+}
+const addFormSubmitHandler = evt => {
+  evt.preventDefault();
+  const elementTemplate = document.querySelector('#element-template').content;
+  const element = elementTemplate.querySelector('.element').cloneNode(true);
+  const elementImage = element.querySelector('.element__image');
+  const elementTitle = element.querySelector('.element__title');
 
-formElement.addEventListener('submit', formSubmitHandler);
+  elementTitle.textContent = tittleInput.value;
+  elementImage.src = linkInput.value;
+
+  elements.prepend(element);
+
+  tittleInput.value = '';
+  linkInput.value = '';
+
+  popupAddClose();
+}
+const addElement = () => {
+  popupAddOpen();
+}
+
+editFormElement.addEventListener('submit', editFormSubmitHandler);
 closeEditPopupButton.addEventListener('click', popupEditClose);
 editButton.addEventListener('click', editProfile);
-
+addFormElement.addEventListener('submit', addFormSubmitHandler);
+closeAddPopupButton.addEventListener('click', popupAddClose);
+addButton.addEventListener('click', addElement);
