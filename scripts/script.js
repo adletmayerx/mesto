@@ -13,6 +13,8 @@ const closeAddPopupButton = document.querySelector('.popup-add__close-button');
 const addFormElement = document.querySelector('.popup-add__form');
 const tittleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
+const popupImage = document.querySelector('.popup-image');
+const popupImageCloseButton = document.querySelector('.popup-image__close-button');
 
 const initialCards = [
   {
@@ -58,34 +60,44 @@ initialCards.forEach(function(card) {
   likeButton.addEventListener('click', function() {
     likeButton.classList.toggle('element__like-button_active');
   });
+  elementImage.addEventListener('click', function() {
+    window.location.href = '#popup-image';
+    const popupImage = document.querySelector('.popup-image');
+    const popupImageImage = popupImage.querySelector('.popup-image__image');
+    popupImageImage.src = elementImage.src;
+  });
 
   elements.append(element);
 });
 
-const popupEditOpen = () => {
+const openPopupEdit = () => {
   popupEdit.classList.add('popup_opened');
 }
-const popupEditClose = () => {
+const closePopupEdit = () => {
   popupEdit.classList.remove('popup_opened');
+  window.location.href = '#';
 }
 const editFormSubmitHandler = evt => {
     evt.preventDefault();
     profileTitle.textContent = nameInput.value;
     profileSubtitle.textContent = jobInput.value;
-    popupEditClose();
+    closePopupEdit();
 }
 const editProfile = () => {
-  popupEditOpen();
+  openPopupEdit();
+  window.location.href = '#popup-edit';
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
 }
-const popupAddOpen = () => {
+const openPopupAdd = () => {
   tittleInput.value = '';
   linkInput.value = '';
   popupAdd.classList.add('popup_opened');
+  window.location.href = '#popup-add';
 }
-const popupAddClose = () => {
+const closePopupAdd = () => {
   popupAdd.classList.remove('popup_opened');
+  window.location.href = '#';
 }
 const addFormSubmitHandler = evt => {
   evt.preventDefault();
@@ -111,20 +123,24 @@ const addFormSubmitHandler = evt => {
   tittleInput.value = '';
   linkInput.value = '';
 
-  popupAddClose();
+  closePopupAdd();
 }
 const addElement = () => {
-  popupAddOpen();
+  openPopupAdd();
+}
+const closePopupImage = () => {
+  popupImage.classList.remove('popup_opened');
+  window.location.href = '#';
 }
 
 
 editFormElement.addEventListener('submit', editFormSubmitHandler);
-closeEditPopupButton.addEventListener('click', popupEditClose);
+closeEditPopupButton.addEventListener('click', closePopupEdit);
 editButton.addEventListener('click', editProfile);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
-closeAddPopupButton.addEventListener('click', popupAddClose);
+closeAddPopupButton.addEventListener('click', closePopupAdd);
 addButton.addEventListener('click', addElement);
-
+popupImageCloseButton.addEventListener('click', closePopupImage);
 
 
 
