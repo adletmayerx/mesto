@@ -64,7 +64,10 @@ initialCards.forEach(function(card) {
     window.location.href = '#popup-image';
     const popupImage = document.querySelector('.popup-image');
     const popupImageImage = popupImage.querySelector('.popup-image__image');
+    const popupImageCaption = popupImage.querySelector('.popup-image__caption');
+
     popupImageImage.src = elementImage.src;
+    popupImageCaption.textContent = elementTitle.textContent;
   });
 
   elements.append(element);
@@ -141,8 +144,3 @@ addFormElement.addEventListener('submit', addFormSubmitHandler);
 closeAddPopupButton.addEventListener('click', closePopupAdd);
 addButton.addEventListener('click', addElement);
 popupImageCloseButton.addEventListener('click', closePopupImage);
-
-
-
-
-
