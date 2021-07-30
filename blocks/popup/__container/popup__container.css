@@ -1,5 +1,5 @@
 .popup__container {
-  box-sizing: border-box  ;
+  box-sizing: border-box;
   width: 430px;
   height: 330px;
   background-color: #fff;
@@ -10,14 +10,8 @@
   padding: 35px;
   color: #000;
   position: relative;
-  opacity: 0;
   transition: all 0.8s ease 0s;
 }
-
-.popup:target .popup__container {
-  opacity: 1;
-}
-
 
 @media screen and (max-width: 767px) {
   .popup__container {

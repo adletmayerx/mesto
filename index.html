@@ -30,7 +30,7 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <div id="popup-edit" class="popup popup-edit">
+  <div class="popup popup-edit">
     <div class="popup__container">
       <button type="button" class="popup__close-button popup-edit__close-button button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <div id="popup-add" class="popup popup-add">
+  <div class="popup popup-add">
     <div class="popup__container">
       <button type="button" class="popup__close-button popup-add__close-button button"></button>
       <h2 class="popup__title">Новое место</h2>
@@ -55,17 +55,20 @@
     </div>
   </div>
 
-  <div id="popup-image" class="popup popup-image">
+  <div class="popup popup-image">
     <div class="popup__container popup-image__container">
       <button type="button" class="popup__close-button popup-image__close-button button"></button>
-      <img class="popup-image__image" src="" alt="">
+      <figure class="popup-image__figure">
+        <img class="popup-image__image" src="#" alt="">
+        <figcaption class="popup-image__caption"></figcaption>
+      </figure>
     </div>
   </div>
 
   <template id="element-template">
     <article class="element">
       <button type="button" class="element__remove-button button"></button>
-      <img src="" alt="" class="element__image">
+      <img src="#" alt="" class="element__image">
       <div class="element__description">
         <h2 class="element__title"></h2>
         <button type="button" class="element__like-button"></button>
@@ -73,6 +76,7 @@
     </article>
   </template>
 
+    <script src="scripts/initial-сards.js"></script>
     <script src="./scripts/script.js"></script>
-</body>
+  </body>
 </html>
