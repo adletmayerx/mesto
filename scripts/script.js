@@ -11,7 +11,7 @@ const popupAdd = document.querySelector('.popup-add');
 const addButton = document.querySelector('.profile__add-button');
 const closeAddPopupButton = document.querySelector('.popup-add__close-button');
 const addFormElement = document.querySelector('.popup-add__form');
-const tittleInput = document.querySelector('.popup__input_type_title');
+const titleInput = document.querySelector('.popup__input_type_title');
 const linkInput = document.querySelector('.popup__input_type_link');
 const popupImage = document.querySelector('.popup-image');
 const popupImageCloseButton = document.querySelector('.popup-image__close-button');
@@ -20,6 +20,12 @@ const popupImageCaption = popupImage.querySelector('.popup-image__caption');
 const elementTemplate = document.querySelector('#element-template').content;
 const popuAddFrom = document.querySelector('.popup-add__form');
 
+const removeElement = (evt) => {
+  evt.target.closest('.element').remove();
+}
+const togglelike = (evt) => {
+  evt.target.classList.toggle('element__like-button_active');
+}
 const createElement = card => {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   const elementImage = element.querySelector('.element__image');
@@ -27,16 +33,9 @@ const createElement = card => {
   const removeButton = element.querySelector('.element__remove-button');
   const likeButton = element.querySelector('.element__like-button');
 
-  elementTitle.textContent = card.name || tittleInput.value;
-  elementImage.src = card.link || linkInput.value;
-  elementImage.alt = card.name || tittleInput.value;
-
-  const removeElement = () => {
-    removeButton.closest('.element').remove();
-  }
-  const togglelike = () => {
-    likeButton.classList.toggle('element__like-button_active');
-  }
+  elementTitle.textContent = card.name;
+  elementImage.src = card.link;
+  elementImage.alt = card.name;
 
   removeButton.addEventListener('click', removeElement);
   likeButton.addEventListener('click', togglelike);
@@ -44,9 +43,9 @@ const createElement = card => {
   elementImage.addEventListener('click', function() {
     openPopupImage();
 
-    popupImageImage.src = elementImage.src;
-    popupImageImage.alt = elementImage.alt;
-    popupImageCaption.textContent = elementTitle.textContent;
+    popupImageImage.src = card.link;
+    popupImageCaption.textContent = card.name;
+    popupImageImage.alt = card.name;
   });
 
   return element;
@@ -86,7 +85,7 @@ const closePopupAdd = () => {
 }
 const addFormSubmitHandler = evt => {
   evt.preventDefault();
-  elements.prepend(createElement(evt));
+  elements.prepend(createElement({link: linkInput.value, name: titleInput.value}));
 
   popuAddFrom.reset();
 
@@ -100,7 +99,7 @@ const closePopupImage = () => {
 }
 
 editFormElement.addEventListener('submit', editFormSubmitHandler);
-closeEditPopupButton.addEventListener('click', closePopupEdit);
+closeEditPopupButton.addEventListener('click', closePopup(popupEdit));
 editButton.addEventListener('click', editProfile);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 closeAddPopupButton.addEventListener('click', closePopupAdd);
