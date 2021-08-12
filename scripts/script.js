@@ -99,9 +99,97 @@ const closePopupImage = () => {
 }
 
 editFormElement.addEventListener('submit', editFormSubmitHandler);
-closeEditPopupButton.addEventListener('click', closePopup(popupEdit));
+closeEditPopupButton.addEventListener('click', closePopupEdit);
 editButton.addEventListener('click', editProfile);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 closeAddPopupButton.addEventListener('click', closePopupAdd);
 addButton.addEventListener('click', addElement);
 popupImageCloseButton.addEventListener('click', closePopupImage);
+// popupEdit.addEventListener('click', closePopupEdit);
+// popupAdd.addEventListener('click', closePopupAdd);
+// popupImage.addEventListener('click', closePopupImage);
+
+
+
+
+// form validation
+
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('form__input_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('form__input-error_active');
+};
+
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('form__input_type_error');
+  errorElement.classList.remove('form__input-error_active');
+  errorElement.textContent = '';
+};
+
+const checkInputValidity = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  const buttonElement = formElement.querySelector('.form__submit');
+
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      checkInputValidity(formElement, inputElement);
+        toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', evt => {
+      evt.preventDefault();
+    });
+
+      setEventListeners(formElement);
+
+  });
+};
+
+const hasInvalidInput = inputList => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('popup__submit-button_inactive');
+  } else {
+    buttonElement.classList.remove('popup__submit-button_inactive');
+  }
+}
+
+enableValidation();
+
+// esc close and overlay click close
+
+
+  const popupsArray = Array.from(document.querySelectorAll('.popup'));
+  console.log(popupsArray);
+  popupsArray.forEach((popup) => {
+    document.addEventListener('keydown', () => {
+      closePopup(popup);
+    });
+
+    popup.addEventListener('click', evt => {
+      if (evt.target === popup) {
+        closePopup(popup);
+      }
+    })
+  });
