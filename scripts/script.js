@@ -183,8 +183,10 @@ enableValidation();
   const popupsArray = Array.from(document.querySelectorAll('.popup'));
   console.log(popupsArray);
   popupsArray.forEach((popup) => {
-    document.addEventListener('keydown', () => {
-      closePopup(popup);
+    document.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Escape'){
+        closePopup(popup);
+      }
     });
 
     popup.addEventListener('click', evt => {
