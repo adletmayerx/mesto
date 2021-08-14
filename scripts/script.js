@@ -19,6 +19,7 @@ const popupImageImage = popupImage.querySelector('.popup-image__image');
 const popupImageCaption = popupImage.querySelector('.popup-image__caption');
 const elementTemplate = document.querySelector('#element-template').content;
 const popuAddFrom = document.querySelector('.popup-add__form');
+const popupsArray = Array.from(document.querySelectorAll('.popup'));
 
 const removeElement = (evt) => {
   evt.target.closest('.element').remove();
@@ -99,9 +100,22 @@ const closePopupImage = () => {
 }
 
 editFormElement.addEventListener('submit', editFormSubmitHandler);
-closeEditPopupButton.addEventListener('click', closePopup(popupEdit));
+closeEditPopupButton.addEventListener('click', closePopupEdit);
 editButton.addEventListener('click', editProfile);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 closeAddPopupButton.addEventListener('click', closePopupAdd);
 addButton.addEventListener('click', addElement);
 popupImageCloseButton.addEventListener('click', closePopupImage);
+popupsArray.forEach((popup) => {
+    document.addEventListener('keydown', (evt) => {
+      if (evt.key === 'Escape'){
+        closePopup(popup);
+      }
+    });
+
+    popup.addEventListener('mousedown', evt => {
+      if (evt.target === popup) {
+        closePopup(popup);
+      }
+    })
+  });
