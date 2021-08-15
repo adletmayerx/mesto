@@ -24,8 +24,7 @@ const popups = document.querySelectorAll('.popup');
 const closeByEsc = (evt) => {
   const opennedPopup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    opennedPopup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', closeByEsc);
+    closePopup(opennedPopup);
   }
 }
 const removeElement = (evt) => {
@@ -67,6 +66,7 @@ const openPopup = (popup) => {
 }
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc);
 }
 const openPopupEdit = () => {
   openPopup(popupEdit);
