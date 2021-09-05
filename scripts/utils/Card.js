@@ -1,7 +1,8 @@
-class Card {
-  constructor(card, template) {
+export class Card {
+  constructor(card, template, onCardClick) {
     this._card = card;
     this._template = template;
+    this._onCardClick = onCardClick;
   }
 
 
@@ -29,14 +30,9 @@ class Card {
     this._removeButton.addEventListener('click', this._removeElement);
     this._likeButton.addEventListener('click', this._togglelike);
 
-    this._elementImage.addEventListener('click', function() {
-      openPopupImage();
-
-      popupImageImage.src = this._card.link;
-      popupImageCaption.textContent = this._card.name;
-      popupImageImage.alt = this._card.name;
-    });
+    this._elementImage.addEventListener('click', this._onCardClick);
   }
+
 
   _removeElement = (evt) => {
     evt.target.closest('.element').remove();
@@ -46,5 +42,3 @@ class Card {
     evt.target.classList.toggle('element__like-button_active');
   }
 };
-
-export {Card};

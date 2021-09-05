@@ -1,4 +1,7 @@
-import {Card} from './card.js';
+import { Card } from './utils/Card.js';
+import { FormValidator } from './utils/FormValidator.js';
+import { initialCards } from './utils/initial-сards.js';
+import { selectors } from './utils/selectors.js';
 
 const editFormElement = document.querySelector('.popup-edit__form');
 const nameInput = document.querySelector('.popup__input_type_name');
@@ -23,12 +26,6 @@ const elementTemplate = document.querySelector('#element-template').content;
 const popupAddForm = document.querySelector('.popup-add__form');
 const popups = document.querySelectorAll('.popup');
 
-
-initialCards.forEach(function(item) {
-  const card = new Card(item, elementTemplate);
-  const cardElement = card.generateCard();
-  elements.append(cardElement);
-});
 
 const closeByEsc = (evt) => {
   const opennedPopup = document.querySelector('.popup_opened');
@@ -70,9 +67,8 @@ const closePopupAdd = () => {
 }
 const addFormSubmitHandler = evt => {
   evt.preventDefault();
-  const card = new Card({link: linkInput.value, name: titleInput.value}, elementTemplate);
-  const cardElement = card.generateCard();
-  elements.prepend(cardElement);
+
+  elements.prepend(createCard({link: linkInput.value, name: titleInput.value}));
 
   popupAddForm.reset();
 
@@ -84,6 +80,22 @@ const openPopupImage = () => {
 const closePopupImage = () => {
   closePopup(popupImage);
 }
+
+const onCardClick = (evt) => {
+  popupImageImage.src = evt.target.getAttribute("src");
+  popupImageCaption.textContent = evt.target.getAttribute("alt");
+  popupImageImage.alt = evt.target.getAttribute("alt");
+
+  openPopupImage();
+}
+
+const createCard = (data) => {
+  return (new Card(data, elementTemplate, onCardClick)).generateCard();
+}
+
+initialCards.forEach(function(item) {
+  elements.append(createCard(item));
+});
 
 editFormElement.addEventListener('submit', editFormSubmitHandler);
 editButton.addEventListener('click', editProfile);
@@ -99,3 +111,6 @@ addButton.addEventListener('click', addElement);
         }
     });
 });
+
+const formValidator = new FormValidator(selectors);
+formValidator.enableValidation();

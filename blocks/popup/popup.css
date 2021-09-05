@@ -10,7 +10,7 @@
   align-items: center;
   visibility: hidden;
   opacity: 0;
-  transition: all 0.8s ease 0s;
+  transition: opacity 0.8s ease 0s;
 }
 
 .popup:target {
