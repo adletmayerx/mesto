@@ -19,9 +19,9 @@ const popupImage = document.querySelector('.popup-image');
 const popupImageCloseButton = document.querySelector('.popup-image__close-button');
 const popupImageImage = popupImage.querySelector('.popup-image__image');
 const popupImageCaption = popupImage.querySelector('.popup-image__caption');
-const popuAddFrom = document.querySelector('.popup-add__form');
-const popupsArray = Array.from(document.querySelectorAll('.popup'));
 const elementTemplate = document.querySelector('#element-template').content;
+const popupAddForm = document.querySelector('.popup-add__form');
+const popups = document.querySelectorAll('.popup');
 
 
 initialCards.forEach(function(item) {
@@ -30,6 +30,12 @@ initialCards.forEach(function(item) {
   elements.append(cardElement);
 });
 
+const closeByEsc = (evt) => {
+  const opennedPopup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(opennedPopup);
+  }
+}
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEsc);
@@ -64,7 +70,9 @@ const closePopupAdd = () => {
 }
 const addFormSubmitHandler = evt => {
   evt.preventDefault();
-  elements.prepend(createElement({link: linkInput.value, name: titleInput.value}));
+  const card = new Card({link: linkInput.value, name: titleInput.value}, elementTemplate);
+  const cardElement = card.generateCard();
+  elements.prepend(cardElement);
 
   popupAddForm.reset();
 
