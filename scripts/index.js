@@ -1,3 +1,5 @@
+import {Card} from './card.js';
+
 const editFormElement = document.querySelector('.popup-edit__form');
 const nameInput = document.querySelector('.popup__input_type_name');
 const jobInput = document.querySelector('.popup__input_type_about');
@@ -17,49 +19,17 @@ const popupImage = document.querySelector('.popup-image');
 const popupImageCloseButton = document.querySelector('.popup-image__close-button');
 const popupImageImage = popupImage.querySelector('.popup-image__image');
 const popupImageCaption = popupImage.querySelector('.popup-image__caption');
+const popuAddFrom = document.querySelector('.popup-add__form');
+const popupsArray = Array.from(document.querySelectorAll('.popup'));
 const elementTemplate = document.querySelector('#element-template').content;
-const popupAddForm = document.querySelector('.popup-add__form');
-const popups = document.querySelectorAll('.popup');
 
-const closeByEsc = (evt) => {
-  const opennedPopup = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape') {
-    closePopup(opennedPopup);
-  }
-}
-const removeElement = (evt) => {
-  evt.target.closest('.element').remove();
-}
-const togglelike = (evt) => {
-  evt.target.classList.toggle('element__like-button_active');
-}
-const createElement = card => {
-  const element = elementTemplate.querySelector('.element').cloneNode(true);
-  const elementImage = element.querySelector('.element__image');
-  const elementTitle = element.querySelector('.element__title');
-  const removeButton = element.querySelector('.element__remove-button');
-  const likeButton = element.querySelector('.element__like-button');
 
-  elementTitle.textContent = card.name;
-  elementImage.src = card.link;
-  elementImage.alt = card.name;
-
-  removeButton.addEventListener('click', removeElement);
-  likeButton.addEventListener('click', togglelike);
-
-  elementImage.addEventListener('click', function() {
-    openPopupImage();
-
-    popupImageImage.src = card.link;
-    popupImageCaption.textContent = card.name;
-    popupImageImage.alt = card.name;
-  });
-
-  return element;
-}
 initialCards.forEach(function(item) {
-  elements.append(createElement(item));
+  const card = new Card(item, elementTemplate);
+  const cardElement = card.generateCard();
+  elements.append(cardElement);
 });
+
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEsc);
