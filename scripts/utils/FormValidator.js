@@ -28,9 +28,16 @@ export class FormValidator {
     });
 
     formElement.addEventListener('reset', () => {
-      this._toggleButtonState(inputList, buttonElement);
+      this._setInitialFormState(formElement, inputList, buttonElement);
     });
   };
+
+  _setInitialFormState(formElement, inputList, buttonElement) {
+    inputList.forEach((inputElement) => {
+      this._hideInputError(formElement, inputElement)
+    })
+    this._toggleButtonState(inputList, buttonElement);
+  }
 
   _toggleButtonState = (inputList, buttonElement) => {
     if (this._hasInvalidInput(inputList)) {
@@ -63,11 +70,13 @@ export class FormValidator {
     errorElement.classList.add(this._selectors.errorClass);
   };
 
-  _hideInputError = (formElement, inputElement) => {
+   _hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._selectors.inputErrorClass);
     errorElement.classList.remove(this._selectors.errorClass);
     errorElement.textContent = '';
   };
+
+
 
 }

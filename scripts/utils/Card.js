@@ -1,7 +1,7 @@
 export class Card {
-  constructor(card, template, onCardClick) {
+  constructor(card, templateSelector, onCardClick) {
     this._card = card;
-    this._template = template;
+    this._templateSelector = templateSelector;
     this._onCardClick = onCardClick;
   }
 
@@ -9,6 +9,13 @@ export class Card {
 
   generateCard() {
     this._getTemplate();
+
+    this._element = this._getTemplate();
+    this._elementImage = this._element.querySelector('.element__image');
+    this._elementTitle = this._element.querySelector('.element__title');
+    this._removeButton = this._element.querySelector('.element__remove-button');
+    this._likeButton = this._element.querySelector('.element__like-button');
+
     this._setEventListeners();
 
     this._elementTitle.textContent = this._card.name;
@@ -19,11 +26,12 @@ export class Card {
   }
 
   _getTemplate() {
-    this._element = this._template.querySelector('.element').cloneNode(true);
-    this._elementImage = this._element.querySelector('.element__image');
-    this._elementTitle = this._element.querySelector('.element__title');
-    this._removeButton = this._element.querySelector('.element__remove-button');
-    this._likeButton = this._element.querySelector('.element__like-button');
+    const cardElement = document
+      .querySelector(this._templateSelector)
+      .content
+      .querySelector('.element')
+      .cloneNode(true);
+    return cardElement;
   }
 
   _setEventListeners() {
