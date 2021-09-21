@@ -36,7 +36,7 @@ export class Card {
 
   _setEventListeners() {
     this._removeButton.addEventListener('click', this._removeElement);
-    this._likeButton.addEventListener('click', this._togglelike);
+    this._likeButton.addEventListener('click', this._toggleLike);
 
     this._elementImage.addEventListener('click', this._onCardClick);
   }
@@ -46,7 +46,7 @@ export class Card {
     evt.target.closest('.element').remove();
   }
 
-  _togglelike = (evt) => {
+  _toggleLike = (evt) => {
     evt.target.classList.toggle('element__like-button_active');
   }
 };
