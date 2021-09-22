@@ -37,12 +37,15 @@ const popupAdd = new PopupWithForm('.popup-add', addFormSubmitHandler);
 
 const popupEdit = new PopupWithForm('.popup-edit', editFormSubmitHandler);
 
-const renderList = new Section({
-  renderer: (item) => {
-    const newElement = createCard(item);
-    renderList.addItem(newElement);
-  }
-}, '.elements');
+// const renderList = new Section({
+//   items: initialCards,renderer: createCard
+// }, '.elements');
+const cardsSection = new Section ({
+  items: initialCards,
+  renderer: createCard
+}, ".cards");
+
+cardsSection.renderItems();
 
 function createCard(data) {
   return new Card(data, '#element-template', onCardClick).generateCard();
@@ -105,9 +108,9 @@ function onCardClick(evt) {
 
 
 
-initialCards.forEach(function(item) {
-  elements.append(createCard(item));
-});
+// initialCards.forEach(function(item) {
+//   elements.append(createCard(item));
+// });
 
 // editFormElement.addEventListener('submit', editFormSubmitHandler);
 editButton.addEventListener('click', editProfile);
@@ -121,7 +124,7 @@ addButton.addEventListener('click', addElement);
 //     }
 //   });
 // });
-renderList.renderItems(initialCards);
+
 
 const formValidator = new FormValidator(selectors);
 formValidator.enableValidation();
