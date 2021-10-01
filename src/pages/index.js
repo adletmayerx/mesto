@@ -40,7 +40,9 @@ function editProfile() {
   jobInput.value = userInfo.getUserInfo().about;
 }
 function editFormSubmitHandler({name, about}) {
-  userInfo.setUserInfo({name, about});
+  api.editProfile({name, about}).then(data => {
+    userInfo.setUserInfo(data)
+  });
   popupEdit.close();
 }
 function addElement() {
@@ -65,6 +67,8 @@ popupAddFormValidator.enableValidation();
 popupAdd.setEventListeners();
 popupEdit.setEventListeners();
 popupWithImage.setEventListeners();
+
+
 
 
 const api = new Api('https://nomoreparties.co/v1/cohort-28');
