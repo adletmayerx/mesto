@@ -23,16 +23,16 @@ const userInfo = new UserInfo({nameSelector: user.nameInfo, aboutSelector: user.
 const popupWithImage = new PopupWithImage('.popup-image');
 const popupAdd = new PopupWithForm('.popup-add', addFormSubmitHandler);
 const popupEdit = new PopupWithForm('.popup-edit', editFormSubmitHandler);
-const cardsSection = new Section ({
-  items: initialCards,
-  renderer: createCard
-}, ".elements");
+// const cardsSection = new Section ({
+//   items: initialCards,
+//   renderer: createCard
+// }, ".elements");
 const popupEditFormValidator = new FormValidator(selectors, popupEditFormSelector);
 
 const popupAddFormValidator = new FormValidator(selectors, popupAddFormSelector);
 
-function createCard(data) {
-  return new Card(data, '#element-template', onCardClick).generateCard();
+function createCard(item) {
+  return new Card(item, '#element-template', onCardClick).generateCard();
 }
 function editProfile() {
   popupEdit.open();
@@ -62,7 +62,6 @@ addButton.addEventListener('click', addElement);
 
 popupEditFormValidator.enableValidation();
 popupAddFormValidator.enableValidation();
-cardsSection.renderItems();
 popupAdd.setEventListeners();
 popupEdit.setEventListeners();
 popupWithImage.setEventListeners();
@@ -73,3 +72,12 @@ const api = new Api('https://nomoreparties.co/v1/cohort-28');
 api.getUserInfo().then(data => {
   userInfo.setUserInfo(data);
 });
+
+api.getInitialCards().then(data => {
+  const cardsSection = new Section ({
+      items: data,
+      renderer: createCard
+    }, ".elements");
+
+    cardsSection.renderItems();
+})
