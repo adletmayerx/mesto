@@ -2,7 +2,7 @@ export {user, nameInput, jobInput, editButton, addButton, popupEditFormSelector,
 
 const user = {
   nameInfo: '.profile__title',
-  jobInfo: '.profile__subtitle'
+  aboutInfo: '.profile__subtitle'
 }
 
 const nameInput = document.querySelector('.popup__input_type_name');
