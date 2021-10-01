@@ -19,7 +19,7 @@ import {
   popupAddFormSelector,
 } from "../scripts/utils/constants.js";
 
-const userInfo = new UserInfo({nameSelector: user.nameInfo, aboutSelector: user.aboutInfo});
+const userInfo = new UserInfo({nameSelector: user.nameInfo, aboutSelector: user.aboutInfo, avatarSelector: user.avatar});
 const popupWithImage = new PopupWithImage('.popup-image');
 const popupAdd = new PopupWithForm('.popup-add', addFormSubmitHandler);
 const popupEdit = new PopupWithForm('.popup-edit', editFormSubmitHandler);
