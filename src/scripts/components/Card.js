@@ -1,8 +1,13 @@
 export class Card {
-  constructor(card, templateSelector, onCardClick) {
+  constructor(card, templateSelector, onCardClick, userId, onRemoveButtonClick) {
     this._card = card;
     this._templateSelector = templateSelector;
     this._onCardClick = onCardClick;
+    this._userId = userId;
+    this._onRemoveButtonClick = onRemoveButtonClick;
+
+    this._onRemoveButtonClick = this._onRemoveButtonClick.bind(this);
+    this._removeButtonHandler = this._removeButtonHandler.bind(this);
   }
 
 
@@ -23,6 +28,13 @@ export class Card {
     this._elementImage.src = this._card.link;
     this._elementImage.alt = this._card.name;
     this._likeCounter.textContent = this._card.likes.length;
+    this._element.id = this._card._id;
+
+    this._userId.then(data => {
+      if (!(data === this._card.owner._id)) {
+        this._removeButton.style.display = "none";
+      }
+    });
 
     return this._element;
   }
@@ -37,18 +49,18 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._removeButton.addEventListener('click', this._removeElement);
+    this._removeButton.addEventListener('click', this._removeButtonHandler);
     this._likeButton.addEventListener('click', this._toggleLike);
 
     this._elementImage.addEventListener('click', this._onCardClick);
   }
 
-
-  _removeElement = (evt) => {
-    evt.target.closest('.element').remove();
-  }
-
   _toggleLike = (evt) => {
     evt.target.classList.toggle('element__like-button_active');
+  }
+
+  _removeButtonHandler(evt) {
+
+    this._onRemoveButtonClick(evt.target.closest('.element'));
   }
 };

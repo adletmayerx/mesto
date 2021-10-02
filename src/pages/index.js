@@ -4,10 +4,10 @@ import { Card } from '../scripts/components/Card.js';
 import { FormValidator } from '../scripts/components/FormValidator.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithConfirm from '../scripts/components/PopupWithConfirm.js';
 import Section from '../scripts/components/Section.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
-import { initialCards } from '../scripts/utils/initial-сards.js';
 import { selectors } from '../scripts/utils/selectors.js';
 import {
   user,
@@ -18,6 +18,11 @@ import {
   popupEditFormSelector,
   popupAddFormSelector,
 } from "../scripts/utils/constants.js";
+
+const api = new Api('https://nomoreparties.co/v1/cohort-28');
+const userId = api.getUserInfo().then(data => {
+  return data._id;
+});
 
 const userInfo = new UserInfo({nameSelector: user.nameInfo, aboutSelector: user.aboutInfo, avatarSelector: user.avatar});
 const popupWithImage = new PopupWithImage('.popup-image');
@@ -31,15 +36,24 @@ const popupEditFormValidator = new FormValidator(selectors, popupEditFormSelecto
 
 const popupAddFormValidator = new FormValidator(selectors, popupAddFormSelector);
 
-const popupDelete = new PopupWithForm('.popup-delete', deleteFormSubmitHandler);
-function deleteFormSubmitHandler() {
+const popupDelete = new PopupWithConfirm('.popup-delete', deleteFormSubmitHandler);
 
-}
-popupDelete.setEventListeners();
+
 
 function createCard(item) {
-  return new Card(item, '#element-template', onCardClick).generateCard();
+  return new Card(item, '#element-template', onCardClick, userId, onRemoveButtonClick).generateCard();
 }
+
+
+function deleteFormSubmitHandler(item) {
+  item.remove();
+  popupDelete.close();
+}
+
+function onRemoveButtonClick(elem) {
+  popupDelete.open(elem);
+}
+
 function editProfile() {
   popupEdit.open();
   nameInput.value = userInfo.getUserInfo().name;
@@ -77,11 +91,11 @@ popupAddFormValidator.enableValidation();
 popupAdd.setEventListeners();
 popupEdit.setEventListeners();
 popupWithImage.setEventListeners();
+popupDelete.setEventListeners();
 
 
 
 
-const api = new Api('https://nomoreparties.co/v1/cohort-28');
 
 api.getUserInfo().then(data => {
   userInfo.setUserInfo(data);
@@ -94,4 +108,4 @@ api.getInitialCards().then(data => {
     }, ".elements");
 
     cardsSection.renderItems();
-})
+});

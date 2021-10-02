@@ -86,4 +86,26 @@ export default class Api {
       return [];
     });
   }
+
+  deleteCard(item) {
+    return fetch(this._url + '/cards/' + item._id, {
+      method: 'DELETE',
+      headers: {
+        authorization: '4bbad6bd-2811-470e-a5ed-e059873eda41',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error(`Response is not ok with code ${res.status}`);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+
+      return [];
+    });
+  }
 }
