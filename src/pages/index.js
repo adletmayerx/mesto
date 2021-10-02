@@ -31,6 +31,12 @@ const popupEditFormValidator = new FormValidator(selectors, popupEditFormSelecto
 
 const popupAddFormValidator = new FormValidator(selectors, popupAddFormSelector);
 
+const popupDelete = new PopupWithForm('.popup-delete', deleteFormSubmitHandler);
+function deleteFormSubmitHandler() {
+
+}
+popupDelete.setEventListeners();
+
 function createCard(item) {
   return new Card(item, '#element-template', onCardClick).generateCard();
 }
