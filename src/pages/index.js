@@ -49,7 +49,11 @@ function addElement() {
   popupAdd.open();
 }
 function addFormSubmitHandler( {title, link} ) {
-  cardsSection.addItem( {name: title, link: link, alt: title} );
+  api.addCard({name: title, link: link}).then( ( {name, link} ) => {
+    const cardsSection = new Section ({renderer: createCard}, ".elements");
+    cardsSection.addItem( {name: name, link: link, alt: name});
+  });
+
   popupAdd.close();
 }
 function onCardClick(evt) {
