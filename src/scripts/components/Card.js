@@ -15,12 +15,14 @@ export class Card {
     this._elementTitle = this._element.querySelector('.element__title');
     this._removeButton = this._element.querySelector('.element__remove-button');
     this._likeButton = this._element.querySelector('.element__like-button');
+    this._likeCounter = this._element.querySelector('.element__like-counter');
 
     this._setEventListeners();
 
     this._elementTitle.textContent = this._card.name;
     this._elementImage.src = this._card.link;
     this._elementImage.alt = this._card.name;
+    this._likeCounter.textContent = this._card.likes.length;
 
     return this._element;
   }

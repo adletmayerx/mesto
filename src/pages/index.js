@@ -49,9 +49,9 @@ function addElement() {
   popupAdd.open();
 }
 function addFormSubmitHandler( {title, link} ) {
-  api.addCard({name: title, link: link}).then( ( {name, link} ) => {
+  api.addCard({name: title, link: link}).then( ( {name, link, likes} ) => {
     const cardsSection = new Section ({renderer: createCard}, ".elements");
-    cardsSection.addItem( {name: name, link: link, alt: name});
+    cardsSection.addItem( {name: name, link: link, alt: name, likes: likes});
   });
 
   popupAdd.close();
