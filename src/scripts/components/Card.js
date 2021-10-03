@@ -1,13 +1,17 @@
 export class Card {
-  constructor(card, templateSelector, onCardClick, userId, onRemoveButtonClick) {
+  constructor(card, templateSelector, onCardClick, userId, onRemoveButtonClick, onLikeButtonClick) {
     this._card = card;
     this._templateSelector = templateSelector;
     this._onCardClick = onCardClick;
     this._userId = userId;
     this._onRemoveButtonClick = onRemoveButtonClick;
+    this._onLikeButtonClick = onLikeButtonClick;
 
     this._onRemoveButtonClick = this._onRemoveButtonClick.bind(this);
     this._removeButtonHandler = this._removeButtonHandler.bind(this);
+    this._onLikeButtonClick = this._onLikeButtonClick.bind(this);
+    this._toggleLike = this._toggleLike.bind(this);
+
   }
 
 
@@ -34,6 +38,11 @@ export class Card {
       if (!(data === this._card.owner._id)) {
         this._removeButton.style.display = "none";
       }
+      this._card.likes.forEach(element => {
+        if (element._id === data) {
+          this._likeButton.classList.add('element__like-button_active');
+        }
+      });
     });
 
     return this._element;
@@ -56,10 +65,11 @@ export class Card {
   }
 
   _toggleLike = (evt) => {
-    evt.target.classList.toggle('element__like-button_active');
+    this._onLikeButtonClick(evt.target, this._elementId, this._likeCounter);
   }
 
   _removeButtonHandler(evt) {
     this._onRemoveButtonClick(evt.target.closest('.element'), this._elementId);
   }
+
 };

@@ -41,7 +41,23 @@ const popupDelete = new PopupWithConfirm('.popup-delete', deleteFormSubmitHandle
 
 
 function createCard(item) {
-  return new Card(item, '#element-template', onCardClick, userId, onRemoveButtonClick).generateCard();
+  return new Card(item, '#element-template', onCardClick, userId, onRemoveButtonClick, onLikeButtonClick).generateCard();
+}
+
+function onLikeButtonClick(likeButton, cardId, likeCounter) {
+  if (likeButton.classList.contains('element__like-button_active')) {
+    api.removeLike(cardId).then(res => {
+      likeCounter.textContent = res.likes.length;
+    }).then(() => {
+      likeButton.classList.toggle('element__like-button_active');
+    });
+  } else {
+    api.addLike(cardId).then(res => {
+      likeCounter.textContent = res.likes.length;
+    }).then(() => {
+      likeButton.classList.toggle('element__like-button_active');
+    });
+  }
 }
 
 

@@ -87,8 +87,8 @@ export default class Api {
     });
   }
 
-  deleteCard(itemId) {
-    return fetch(this._url + '/cards/' + itemId, {
+  deleteCard(cardId) {
+    return fetch(this._url + '/cards/' + cardId, {
       method: 'DELETE',
       headers: {
         authorization: '4bbad6bd-2811-470e-a5ed-e059873eda41',
@@ -107,5 +107,68 @@ export default class Api {
 
       return [];
     });
+  }
+
+  addLike(cardId) {
+    return fetch(this._url + '/cards/likes/' + cardId, {
+      method: 'PUT',
+      headers: {
+        authorization: '4bbad6bd-2811-470e-a5ed-e059873eda41',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error(`Response is not ok with code ${res.status}`);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+
+      return [];
+    });
+  }
+
+  removeLike(cardId) {
+    return fetch(this._url + '/cards/likes/' + cardId, {
+      method: 'DELETE',
+      headers: {
+        authorization: '4bbad6bd-2811-470e-a5ed-e059873eda41',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error(`Response is not ok with code ${res.status}`);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+
+      return [];
+    });
+  }
+
+  getCard(cardId) {
+    return fetch(this._url + '/cards/' + cardId, {
+      headers: {
+        authorization: '4bbad6bd-2811-470e-a5ed-e059873eda41'
+      }})
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error(`Response is not ok with code ${res.status}`);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+
+        return [];
+      });
   }
 }
