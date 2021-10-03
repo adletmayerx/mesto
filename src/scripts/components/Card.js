@@ -28,7 +28,7 @@ export class Card {
     this._elementImage.src = this._card.link;
     this._elementImage.alt = this._card.name;
     this._likeCounter.textContent = this._card.likes.length;
-    this._element.id = this._card._id;
+    this._elementId = this._card._id;
 
     this._userId.then(data => {
       if (!(data === this._card.owner._id)) {
@@ -60,7 +60,6 @@ export class Card {
   }
 
   _removeButtonHandler(evt) {
-
-    this._onRemoveButtonClick(evt.target.closest('.element'));
+    this._onRemoveButtonClick(evt.target.closest('.element'), this._elementId);
   }
 };

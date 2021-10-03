@@ -45,13 +45,15 @@ function createCard(item) {
 }
 
 
-function deleteFormSubmitHandler(item) {
-  item.remove();
+function deleteFormSubmitHandler(card, cardId) {
+  api.deleteCard(cardId).then(() => {
+    card.remove();
+  });
   popupDelete.close();
 }
 
-function onRemoveButtonClick(elem) {
-  popupDelete.open(elem);
+function onRemoveButtonClick(card, cardId) {
+  popupDelete.open(card, cardId);
 }
 
 function editProfile() {

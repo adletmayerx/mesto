@@ -87,8 +87,8 @@ export default class Api {
     });
   }
 
-  deleteCard(item) {
-    return fetch(this._url + '/cards/' + item._id, {
+  deleteCard(itemId) {
+    return fetch(this._url + '/cards/' + itemId, {
       method: 'DELETE',
       headers: {
         authorization: '4bbad6bd-2811-470e-a5ed-e059873eda41',
