@@ -7,16 +7,17 @@
 <script defer src="main.js"></script><link href="main.css" rel="stylesheet"></head>
 <body class="page">
   <header class="header">
-    <img src="bbe2a6eafac19c3d031c.svg" alt="лого сайта 'Место'" class="header__logo">
+    <img src="03b78ada3425e9132ff3.svg" alt="лого сайта 'Место'" class="header__logo">
   </header>
   <main class="content">
     <section class="profile">
-      <img src="c7235afccbc9afdf0f7c.png" alt="фотография обладателя профиля"
-      class="profile__image">
+      <div class="profile__image-container">
+        <img src="#" alt="фотография обладателя профиля" class="profile__image">
+      </div>
       <div class="profile__info">
-        <h1 class="profile__title">Жак-Ив Кусто</h1>
+        <h1 class="profile__title"></h1>
         <button type="button" class="profile__edit-button button"></button>
-        <p class="profile__subtitle">Исследователь океана</p>
+        <p class="profile__subtitle"></p>
       </div>
       <button type="button" class="profile__add-button button"></button>
     </section>
@@ -37,10 +38,10 @@
         <input name="name" type="text" class="popup__input popup__input_type_name form__input"
          id="name-input" required minlength="2" maxlength="40" placeholder="Ваше имя">
         <span class="form__input-error name-input-error"></span>
-        <input name="job" type="text" class="popup__input popup__input_type_about form__input"
-        id="job-input" required minlength="2" maxlength="200" placeholder="Расскажите о себе">
-        <span class="form__input-error job-input-error"></span>
-      <button type="submit" class="popup__save-button popup__submit-button form__submit">Сохранить</button>
+        <input name="about" type="text" class="popup__input popup__input_type_about form__input"
+        id="about-input" required minlength="2" maxlength="200" placeholder="Расскажите о себе">
+        <span class="form__input-error about-input-error"></span>
+      <button type="submit" class="popup__save-button popup__submit-button form__submit popup-edit__submit-button">Сохранить</button>
     </form>
     </div>
   </div>
@@ -56,7 +57,20 @@
         <input name="link" type="url" class="popup__input popup__input_type_link form__input"
         id="link-input" placeholder="Ссылка на картинку" required>
         <span class="form__input-error link-input-error"></span>
-      <button type="submit" class="popup__create-button popup__submit-button form__submit">Создать</button>
+      <button type="submit" class="popup__create-button popup__submit-button form__submit popup-add__submit-button">Создать</button>
+    </form>
+    </div>
+  </div>
+
+  <div class="popup popup-avatar">
+    <div class="popup__container">
+      <button type="button" class="popup__close-button popup-avatar__close-button button"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form name="popup-avatar__form" class="popup-avatar__form form">
+        <input name="avatar" type="url" class="popup__input popup__input_type_avatar form__input"
+        id="avatar-input" placeholder="Обновить аватар" required>
+        <span class="form__input-error avatar-input-error"></span>
+      <button type="submit" class="popup__save-button popup__submit-button form__submit popup-avatar__submit-button">Сохранить</button>
     </form>
     </div>
   </div>
@@ -71,13 +85,26 @@
     </div>
   </div>
 
+  <div class="popup popup-delete">
+    <div class="popup__container">
+      <button type="button" class="popup__close-button popup-delete__close-button button"></button>
+      <h2 class="popup__title popup-delete__title">Вы уверены?</h2>
+      <form name="popup-add__form" class="popup-delete__form form">
+      <button type="submit" class="popup__delete-button popup__submit-button form__submit popup-delete__submit-button">Да</button>
+    </form>
+    </div>
+  </div>
+
   <template id="element-template">
     <article class="element">
       <button type="button" class="element__remove-button button"></button>
       <img src="#" alt="" class="element__image">
       <div class="element__description">
         <h2 class="element__title"></h2>
-        <button type="button" class="element__like-button"></button>
+        <div class="element__like-container">
+          <button type="button" class="element__like-button"></button>
+          <p class="element__like-counter">1</p>
+        </div>
       </div>
     </article>
   </template>
