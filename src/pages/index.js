@@ -17,6 +17,7 @@ import {
   addButton,
   popupEditFormSelector,
   popupAddFormSelector,
+  profileImageContainer
 } from "../scripts/utils/constants.js";
 
 const api = new Api('https://nomoreparties.co/v1/cohort-28');
@@ -28,10 +29,17 @@ const userInfo = new UserInfo({nameSelector: user.nameInfo, aboutSelector: user.
 const popupWithImage = new PopupWithImage('.popup-image');
 const popupAdd = new PopupWithForm('.popup-add', addFormSubmitHandler);
 const popupEdit = new PopupWithForm('.popup-edit', editFormSubmitHandler);
-// const cardsSection = new Section ({
-//   items: initialCards,
-//   renderer: createCard
-// }, ".elements");
+const popupAvatar = new PopupWithForm('.popup-avatar', avatarFormSubmitHandler);
+
+function avatarFormSubmitHandler({avatar}) {
+  api.editAvatar({avatar}).then(res => {
+    userInfo.setUserInfo(res);
+  });
+}
+
+function editAvatar() {
+  popupAvatar.open();
+}
 const popupEditFormValidator = new FormValidator(selectors, popupEditFormSelector);
 
 const popupAddFormValidator = new FormValidator(selectors, popupAddFormSelector);
@@ -103,6 +111,7 @@ function onCardClick(evt) {
 
 editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', addElement);
+profileImageContainer.addEventListener('click', editAvatar);
 
 popupEditFormValidator.enableValidation();
 popupAddFormValidator.enableValidation();
@@ -110,6 +119,7 @@ popupAdd.setEventListeners();
 popupEdit.setEventListeners();
 popupWithImage.setEventListeners();
 popupDelete.setEventListeners();
+popupAvatar.setEventListeners();
 
 
 

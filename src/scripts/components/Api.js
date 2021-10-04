@@ -153,22 +153,26 @@ export default class Api {
     });
   }
 
-  getCard(cardId) {
-    return fetch(this._url + '/cards/' + cardId, {
+  editAvatar(avatar){
+    return fetch(this._url +'/users/me/avatar', {
+      method: 'PATCH',
       headers: {
-        authorization: '4bbad6bd-2811-470e-a5ed-e059873eda41'
-      }})
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error(`Response is not ok with code ${res.status}`);
-        }
-      })
-      .catch(err => {
-        console.log(err);
+        authorization: '4bbad6bd-2811-470e-a5ed-e059873eda41',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(avatar)
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error(`Response is not ok with code ${res.status}`);
+      }
+    })
+    .catch(err => {
+      console.log(err);
 
-        return [];
-      });
+      return [];
+    });
   }
 }

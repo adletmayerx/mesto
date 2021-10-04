@@ -1,4 +1,4 @@
-export {user, nameInput, jobInput, editButton, addButton, popupEditFormSelector, popupAddFormSelector};
+export {user, nameInput, jobInput, editButton, addButton, popupEditFormSelector, popupAddFormSelector, profileImageContainer};
 
 const user = {
   nameInfo: '.profile__title',
@@ -17,3 +17,5 @@ const addButton = document.querySelector('.profile__add-button');
 const popupEditFormSelector = '.popup-edit__form';
 
 const popupAddFormSelector = '.popup-add__form';
+
+const profileImageContainer = document.querySelector('.profile__image-container');
