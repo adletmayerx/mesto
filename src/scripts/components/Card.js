@@ -1,8 +1,17 @@
 export class Card {
-  constructor(card, templateSelector, onCardClick) {
+  constructor(card, templateSelector, onCardClick, userId, onRemoveButtonClick, onLikeButtonClick) {
     this._card = card;
     this._templateSelector = templateSelector;
     this._onCardClick = onCardClick;
+    this._userId = userId;
+    this._onRemoveButtonClick = onRemoveButtonClick;
+    this._onLikeButtonClick = onLikeButtonClick;
+
+    this._onRemoveButtonClick = this._onRemoveButtonClick.bind(this);
+    this._removeButtonHandler = this._removeButtonHandler.bind(this);
+    this._onLikeButtonClick = this._onLikeButtonClick.bind(this);
+    this._toggleLike = this._toggleLike.bind(this);
+
   }
 
 
@@ -15,12 +24,26 @@ export class Card {
     this._elementTitle = this._element.querySelector('.element__title');
     this._removeButton = this._element.querySelector('.element__remove-button');
     this._likeButton = this._element.querySelector('.element__like-button');
+    this._likeCounter = this._element.querySelector('.element__like-counter');
 
     this._setEventListeners();
 
     this._elementTitle.textContent = this._card.name;
     this._elementImage.src = this._card.link;
     this._elementImage.alt = this._card.name;
+    this._likeCounter.textContent = this._card.likes.length;
+    this._elementId = this._card._id;
+
+    this._userId.then(data => {
+      if (!(data === this._card.owner._id)) {
+        this._removeButton.style.display = "none";
+      }
+      this._card.likes.forEach(element => {
+        if (element._id === data) {
+          this._likeButton.classList.add('element__like-button_active');
+        }
+      });
+    });
 
     return this._element;
   }
@@ -35,18 +58,18 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._removeButton.addEventListener('click', this._removeElement);
+    this._removeButton.addEventListener('click', this._removeButtonHandler);
     this._likeButton.addEventListener('click', this._toggleLike);
 
     this._elementImage.addEventListener('click', this._onCardClick);
   }
 
-
-  _removeElement = (evt) => {
-    evt.target.closest('.element').remove();
+  _toggleLike(evt) {
+    this._onLikeButtonClick(evt.target, this._elementId, this._likeCounter);
   }
 
-  _toggleLike = (evt) => {
-    evt.target.classList.toggle('element__like-button_active');
+  _removeButtonHandler(evt) {
+    this._onRemoveButtonClick(evt.target.closest('.element'), this._elementId);
   }
+
 };
