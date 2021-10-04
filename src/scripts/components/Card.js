@@ -64,7 +64,7 @@ export class Card {
     this._elementImage.addEventListener('click', this._onCardClick);
   }
 
-  _toggleLike = (evt) => {
+  _toggleLike(evt) {
     this._onLikeButtonClick(evt.target, this._elementId, this._likeCounter);
   }
 
