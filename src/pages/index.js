@@ -26,6 +26,7 @@ const api = new Api('https://nomoreparties.co/v1/cohort-28');
 let userId;
 api.getUserInfo()
   .then((data) => {
+    userInfo.setUserInfo(data)
     userId = data._id;
   })
   .catch(err => {
