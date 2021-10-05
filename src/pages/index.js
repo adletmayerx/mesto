@@ -177,9 +177,10 @@ function onCardClick(link, name) {
 
 
 function editProfile() {
+  const userData = userInfo.getUserInfo();
   popupEdit.open();
-  nameInput.value = userInfo.getUserInfo().name;
-  jobInput.value = userInfo.getUserInfo().about;
+  nameInput.value = userData.name;
+  jobInput.value = userData.about;
 }
 
 function addElement() {
