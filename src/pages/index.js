@@ -23,9 +23,16 @@ import {
 } from "../scripts/utils/constants.js";
 
 const api = new Api('https://nomoreparties.co/v1/cohort-28');
-const userId = api.getUserInfo().then((data) => {
-  return data._id;
-});
+let userId;
+api.getUserInfo()
+  .then((data) => {
+    userId = data._id;
+  })
+  .catch(err => {
+    console.log(err);
+
+    return [];
+  });
 const userInfo = new UserInfo({nameSelector: user.nameInfo, aboutSelector: user.aboutInfo, avatarSelector: user.avatar});
 const popupWithImage = new PopupWithImage('.popup-image');
 const popupAdd = new PopupWithForm('.popup-add', addFormSubmitHandler);

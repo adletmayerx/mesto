@@ -34,16 +34,14 @@ export class Card {
     this._likeCounter.textContent = this._card.likes.length;
     this._elementId = this._card._id;
 
-    this._userId.then(data => {
-      if (!(data === this._card.owner._id)) {
+      if (!(this._userId === this._card.owner._id)) {
         this._removeButton.style.display = "none";
       }
       this._card.likes.forEach(element => {
-        if (element._id === data) {
+        if (element._id === this._userId) {
           this._likeButton.classList.add('element__like-button_active');
         }
       });
-    });
 
     return this._element;
   }
