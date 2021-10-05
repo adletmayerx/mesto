@@ -104,12 +104,12 @@ function avatarFormSubmitHandler({avatar}) {
     });
 }
 
-function deleteFormSubmitHandler(card, cardId) {
+function deleteFormSubmitHandler(card, cardId, deleteCard) {
   submitButtons.deleteCard.textContent = 'Удаление...';
   api
     .deleteCard(cardId)
     .then(() => {
-      card.remove();
+      deleteCard();
     })
     .catch((err) => {
       console.log(err);
@@ -125,14 +125,15 @@ function deleteFormSubmitHandler(card, cardId) {
 }
 
 function createCard(item) {
-  return new Card(
-    item,
-    "#element-template",
-    onCardClick,
-    userId,
-    onRemoveButtonClick,
-    onLikeButtonClick
-  ).generateCard();
+  const element = new Card(item, "#element-template", userId, {
+    onCardClick: onCardClick,
+    onRemoveButtonClick: (card, cardId, deleteCard) => {
+      popupDelete.open(card, cardId, deleteCard);
+    },
+    onLikeButtonClick: onLikeButtonClick
+  }).generateCard();
+
+  return element;
 }
 
 function onCardClick(evt) {
@@ -140,10 +141,6 @@ function onCardClick(evt) {
   const popupImageAlt = evt.target.getAttribute("alt");
 
   popupWithImage.open( {src: popupImageSrc, alt: popupImageAlt} );
-}
-
-function onRemoveButtonClick(card, cardId) {
-  popupDelete.open(card, cardId);
 }
 
 function onLikeButtonClick(likeButton, cardId, likeCounter) {

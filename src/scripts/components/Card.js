@@ -1,5 +1,5 @@
 export class Card {
-  constructor(card, templateSelector, onCardClick, userId, onRemoveButtonClick, onLikeButtonClick) {
+  constructor(card, templateSelector, userId,{ onCardClick, onRemoveButtonClick, onLikeButtonClick }) {
     this._card = card;
     this._templateSelector = templateSelector;
     this._onCardClick = onCardClick;
@@ -11,6 +11,7 @@ export class Card {
     this._removeButtonHandler = this._removeButtonHandler.bind(this);
     this._onLikeButtonClick = this._onLikeButtonClick.bind(this);
     this._toggleLike = this._toggleLike.bind(this);
+    this.removeCard = this.removeCard.bind(this);
 
   }
 
@@ -66,8 +67,11 @@ export class Card {
     this._onLikeButtonClick(evt.target, this._elementId, this._likeCounter);
   }
 
-  _removeButtonHandler(evt) {
-    this._onRemoveButtonClick(evt.target.closest('.element'), this._elementId);
+  _removeButtonHandler() {
+    this._onRemoveButtonClick(this._element, this._elementId, this.removeCard);
   }
 
+  removeCard() {
+    this._element.remove();
+  }
 };
