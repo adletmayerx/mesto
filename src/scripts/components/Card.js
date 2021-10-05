@@ -1,5 +1,5 @@
 export class Card {
-  constructor(card, templateSelector, onCardClick, userId, onRemoveButtonClick, onLikeButtonClick) {
+  constructor(card, templateSelector, userId,{ onCardClick, onRemoveButtonClick, onLikeButtonClick }) {
     this._card = card;
     this._templateSelector = templateSelector;
     this._onCardClick = onCardClick;
@@ -11,6 +11,8 @@ export class Card {
     this._removeButtonHandler = this._removeButtonHandler.bind(this);
     this._onLikeButtonClick = this._onLikeButtonClick.bind(this);
     this._toggleLike = this._toggleLike.bind(this);
+    this.removeCard = this.removeCard.bind(this);
+    this.setLikes = this.setLikes.bind(this);
 
   }
 
@@ -34,16 +36,15 @@ export class Card {
     this._likeCounter.textContent = this._card.likes.length;
     this._elementId = this._card._id;
 
-    this._userId.then(data => {
-      if (!(data === this._card.owner._id)) {
+      if (!(this._userId === this._card.owner._id)) {
         this._removeButton.style.display = "none";
       }
+
       this._card.likes.forEach(element => {
-        if (element._id === data) {
+        if (element._id === this._userId) {
           this._likeButton.classList.add('element__like-button_active');
         }
       });
-    });
 
     return this._element;
   }
@@ -61,15 +62,22 @@ export class Card {
     this._removeButton.addEventListener('click', this._removeButtonHandler);
     this._likeButton.addEventListener('click', this._toggleLike);
 
-    this._elementImage.addEventListener('click', this._onCardClick);
+    this._elementImage.addEventListener('click', () => this._onCardClick(this._card.link, this._card.name));
   }
 
   _toggleLike(evt) {
-    this._onLikeButtonClick(evt.target, this._elementId, this._likeCounter);
+    this._onLikeButtonClick(evt.target, this._elementId, this._element);
   }
 
-  _removeButtonHandler(evt) {
-    this._onRemoveButtonClick(evt.target.closest('.element'), this._elementId);
+  _removeButtonHandler() {
+    this._onRemoveButtonClick(this._element, this._elementId, this.removeCard);
   }
 
+  removeCard() {
+    this._element.remove();
+  }
+
+  setLikes(card, likes) {
+    card.querySelector('.element__like-counter').textContent = likes.length;
+  }
 };
