@@ -26,14 +26,20 @@ const api = new Api('https://nomoreparties.co/v1/cohort-28');
 let userId;
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
+    userId = userData._id;
+
     cardsSection.renderItems(cards);
     userInfo.setUserInfo(userData);
-    userId = userData._id;
+
+    return userId;
+
+
   }).catch((err) => {
     console.log(err);
 
     return [];
   });
+
 const userInfo = new UserInfo({nameSelector: user.nameInfo, aboutSelector: user.aboutInfo, avatarSelector: user.avatar});
 const popupWithImage = new PopupWithImage('.popup-image');
 const popupAdd = new PopupWithForm('.popup-add', addFormSubmitHandler);
