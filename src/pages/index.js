@@ -51,6 +51,9 @@ function addFormSubmitHandler( {title, link} ) {
     .then((item) => {
       cardsSection.addItem(item);
     })
+    .then(() => {
+      popupAdd.close();
+    })
     .catch((err) => {
       console.log(err);
 
@@ -58,7 +61,6 @@ function addFormSubmitHandler( {title, link} ) {
     })
     .finally(() => {
       submitButtons.addCard.textContent = "Создать";
-      popupAdd.close();
     });
 }
 
@@ -73,6 +75,9 @@ function editFormSubmitHandler({name, about}) {
       console.log(err);
 
       return [];
+    })
+    .then(() => {
+      popupEdit.close();
     })
     .finally(() => {
       submitButtons.editProfile.textContent = "Сохранить";
@@ -91,6 +96,9 @@ function avatarFormSubmitHandler({avatar}) {
 
       return [];
     })
+    .then(() => {
+      popupAvatar.close();
+    })
     .finally(() => {
       submitButtons.avatar.textContent = "Сохранить";
     });
@@ -107,6 +115,9 @@ function deleteFormSubmitHandler(card, cardId) {
       console.log(err);
 
       return [];
+    })
+    .then(() => {
+      popupDelete.close();
     })
     .finally(() => {
       submitButtons.deleteCard.textContent = "Да";
