@@ -130,50 +130,51 @@ function createCard(item) {
     onRemoveButtonClick: (card, cardId, deleteCard) => {
       popupDelete.open(card, cardId, deleteCard);
     },
-    onLikeButtonClick: onLikeButtonClick
-  }).generateCard();
+    onLikeButtonClick: (likeButton, cardId, card) => {
+      if (likeButton.classList.contains('element__like-button_active')) {
+        api
+          .removeLike(cardId)
+          .then((res) => {
+            element.setLikes(card, res.likes);
+          })
+          .catch((err) => {
+            console.log(err);
 
-  return element;
+            return [];
+          })
+          .then(() => {
+            likeButton.classList.toggle("element__like-button_active");
+          });
+      } else {
+        api
+          .addLike(cardId)
+          .then((res) => {
+            element.setLikes(card, res.likes);
+
+          })
+          .catch((err) => {
+            console.log(err);
+
+            return [];
+          })
+          .then(() => {
+            likeButton.classList.toggle("element__like-button_active");
+          });
+      }
+    }
+  });
+  const card = element.generateCard();
+
+  return card;
 }
 
-function onCardClick(evt) {
-  const popupImageSrc = evt.target.getAttribute("src");
-  const popupImageAlt = evt.target.getAttribute("alt");
+function onCardClick(link, name) {
+  const popupImageSrc = link;
+  const popupImageAlt = name;
 
   popupWithImage.open( {src: popupImageSrc, alt: popupImageAlt} );
 }
 
-function onLikeButtonClick(likeButton, cardId, likeCounter) {
-  if (likeButton.classList.contains('element__like-button_active')) {
-    api
-      .removeLike(cardId)
-      .then((res) => {
-        likeCounter.textContent = res.likes.length;
-      })
-      .catch((err) => {
-        console.log(err);
-
-        return [];
-      })
-      .then(() => {
-        likeButton.classList.toggle("element__like-button_active");
-      });
-  } else {
-    api
-      .addLike(cardId)
-      .then((res) => {
-        likeCounter.textContent = res.likes.length;
-      })
-      .catch((err) => {
-        console.log(err);
-
-        return [];
-      })
-      .then(() => {
-        likeButton.classList.toggle("element__like-button_active");
-      });
-  }
-}
 
 function editProfile() {
   popupEdit.open();

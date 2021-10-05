@@ -12,6 +12,7 @@ export class Card {
     this._onLikeButtonClick = this._onLikeButtonClick.bind(this);
     this._toggleLike = this._toggleLike.bind(this);
     this.removeCard = this.removeCard.bind(this);
+    this.setLikes = this.setLikes.bind(this);
 
   }
 
@@ -60,11 +61,11 @@ export class Card {
     this._removeButton.addEventListener('click', this._removeButtonHandler);
     this._likeButton.addEventListener('click', this._toggleLike);
 
-    this._elementImage.addEventListener('click', this._onCardClick);
+    this._elementImage.addEventListener('click', () => this._onCardClick(this._card.link, this._card.name));
   }
 
   _toggleLike(evt) {
-    this._onLikeButtonClick(evt.target, this._elementId, this._likeCounter);
+    this._onLikeButtonClick(evt.target, this._elementId, this._element);
   }
 
   _removeButtonHandler() {
@@ -73,5 +74,9 @@ export class Card {
 
   removeCard() {
     this._element.remove();
+  }
+
+  setLikes(card, likes) {
+    card.querySelector('.element__like-counter').textContent = likes.length;
   }
 };
