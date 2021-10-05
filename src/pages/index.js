@@ -24,12 +24,12 @@ import {
 
 const api = new Api('https://nomoreparties.co/v1/cohort-28');
 let userId;
-api.getUserInfo()
-  .then((data) => {
-    userInfo.setUserInfo(data)
-    userId = data._id;
-  })
-  .catch(err => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    cardsSection.renderItems(cards);
+    userInfo.setUserInfo(userData);
+    userId = userData._id;
+  }).catch((err) => {
     console.log(err);
 
     return [];
@@ -192,21 +192,8 @@ function editAvatar() {
   popupAvatar.open();
 }
 
-api.getUserInfo().then(data => {
-  userInfo.setUserInfo(data);
-}).catch((err) => {
-  console.log(err);
 
-  return [];
-});
 
-api.getInitialCards().then((data) => {
-  cardsSection.renderItems(data);
-}).catch((err) => {
-  console.log(err);
-
-  return [];
-});
 
 editButton.addEventListener('click', editProfile);
 addButton.addEventListener('click', addElement);
