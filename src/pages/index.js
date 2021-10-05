@@ -42,14 +42,19 @@ const popupDelete = new PopupWithConfirm('.popup-delete', deleteFormSubmitHandle
 const popupEditFormValidator = new FormValidator(selectors, popupEditFormSelector);
 const popupAddFormValidator = new FormValidator(selectors, popupAddFormSelector);
 const popupAvatarFormValidator = new FormValidator(selectors, popupAvatarFormSelector);
+const cardsSection = new Section({ renderer: createCard }, ".elements");
 
 function addFormSubmitHandler( {title, link} ) {
   submitButtons.addCard.textContent = 'Сохранение...';
   api
     .addCard({ name: title, link: link })
     .then((item) => {
-      const cardsSection = new Section({ renderer: createCard }, ".elements");
       cardsSection.addItem(item);
+    })
+    .catch((err) => {
+      console.log(err);
+
+      return [];
     })
     .finally(() => {
       submitButtons.addCard.textContent = "Создать";
@@ -64,6 +69,11 @@ function editFormSubmitHandler({name, about}) {
     .then((data) => {
       userInfo.setUserInfo(data);
     })
+    .catch((err) => {
+      console.log(err);
+
+      return [];
+    })
     .finally(() => {
       submitButtons.editProfile.textContent = "Сохранить";
     });
@@ -76,6 +86,11 @@ function avatarFormSubmitHandler({avatar}) {
     .then((res) => {
       userInfo.setUserInfo(res);
     })
+    .catch((err) => {
+      console.log(err);
+
+      return [];
+    })
     .finally(() => {
       submitButtons.avatar.textContent = "Сохранить";
     });
@@ -87,6 +102,11 @@ function deleteFormSubmitHandler(card, cardId) {
     .deleteCard(cardId)
     .then(() => {
       card.remove();
+    })
+    .catch((err) => {
+      console.log(err);
+
+      return [];
     })
     .finally(() => {
       submitButtons.deleteCard.textContent = "Да";
@@ -122,6 +142,11 @@ function onLikeButtonClick(likeButton, cardId, likeCounter) {
       .then((res) => {
         likeCounter.textContent = res.likes.length;
       })
+      .catch((err) => {
+        console.log(err);
+
+        return [];
+      })
       .then(() => {
         likeButton.classList.toggle("element__like-button_active");
       });
@@ -130,6 +155,11 @@ function onLikeButtonClick(likeButton, cardId, likeCounter) {
       .addLike(cardId)
       .then((res) => {
         likeCounter.textContent = res.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
+
+        return [];
       })
       .then(() => {
         likeButton.classList.toggle("element__like-button_active");
@@ -153,17 +183,18 @@ function editAvatar() {
 
 api.getUserInfo().then(data => {
   userInfo.setUserInfo(data);
+}).catch((err) => {
+  console.log(err);
+
+  return [];
 });
 
 api.getInitialCards().then((data) => {
-  const cardsSection = new Section(
-    {
-      items: data,
-      renderer: createCard,
-    },
-    ".elements"
-  );
-  cardsSection.renderItems();
+  cardsSection.renderItems(data);
+}).catch((err) => {
+  console.log(err);
+
+  return [];
 });
 
 editButton.addEventListener('click', editProfile);
