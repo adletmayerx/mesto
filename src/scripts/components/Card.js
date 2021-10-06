@@ -66,7 +66,7 @@ export class Card {
   }
 
   _toggleLike(evt) {
-    this._onLikeButtonClick(evt.target, this._elementId, this._element);
+    this._onLikeButtonClick(evt.target, this._elementId);
   }
 
   _removeButtonHandler() {
@@ -77,7 +77,8 @@ export class Card {
     this._element.remove();
   }
 
-  setLikes(card, likes) {
-    card.querySelector('.element__like-counter').textContent = likes.length;
+  setLikes(likes) {
+    this._likeButton.classList.toggle('element__like-button_active');
+    this._likeCounter.textContent = likes.length;
   }
 };
