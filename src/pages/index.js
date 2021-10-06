@@ -30,10 +30,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     cardsSection.renderItems(cards);
     userInfo.setUserInfo(userData);
-
-    return userId;
-
-
   }).catch((err) => {
     console.log(err);
 
@@ -57,8 +53,6 @@ function addFormSubmitHandler( {title, link} ) {
     .addCard({ name: title, link: link })
     .then((item) => {
       cardsSection.addItem(item);
-    })
-    .then(() => {
       popupAdd.close();
     })
     .catch((err) => {
@@ -77,14 +71,12 @@ function editFormSubmitHandler({name, about}) {
     .editProfile({ name, about })
     .then((data) => {
       userInfo.setUserInfo(data);
+      popupEdit.close();
     })
     .catch((err) => {
       console.log(err);
 
       return [];
-    })
-    .then(() => {
-      popupEdit.close();
     })
     .finally(() => {
       submitButtons.editProfile.textContent = "Сохранить";
@@ -97,14 +89,12 @@ function avatarFormSubmitHandler({avatar}) {
     .editAvatar({ avatar })
     .then((res) => {
       userInfo.setUserInfo(res);
+      popupAvatar.close();
     })
     .catch((err) => {
       console.log(err);
 
       return [];
-    })
-    .then(() => {
-      popupAvatar.close();
     })
     .finally(() => {
       submitButtons.avatar.textContent = "Сохранить";
@@ -117,14 +107,12 @@ function deleteFormSubmitHandler(card, cardId, deleteCard) {
     .deleteCard(cardId)
     .then(() => {
       deleteCard();
+      popupDelete.close();
     })
     .catch((err) => {
       console.log(err);
 
       return [];
-    })
-    .then(() => {
-      popupDelete.close();
     })
     .finally(() => {
       submitButtons.deleteCard.textContent = "Да";
@@ -137,35 +125,28 @@ function createCard(item) {
     onRemoveButtonClick: (card, cardId, deleteCard) => {
       popupDelete.open(card, cardId, deleteCard);
     },
-    onLikeButtonClick: (likeButton, cardId, card) => {
+    onLikeButtonClick: (likeButton, cardId) => {
       if (likeButton.classList.contains('element__like-button_active')) {
         api
           .removeLike(cardId)
           .then((res) => {
-            element.setLikes(card, res.likes);
+            element.setLikes(res.likes);
           })
           .catch((err) => {
             console.log(err);
 
             return [];
-          })
-          .then(() => {
-            likeButton.classList.toggle("element__like-button_active");
           });
       } else {
         api
           .addLike(cardId)
           .then((res) => {
-            element.setLikes(card, res.likes);
-
+            element.setLikes(res.likes);
           })
           .catch((err) => {
             console.log(err);
 
             return [];
-          })
-          .then(() => {
-            likeButton.classList.toggle("element__like-button_active");
           });
       }
     }
